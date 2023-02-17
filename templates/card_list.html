@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block title %}
+Tasks List
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><h4>home page</h4></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              
+            </ul>
+            <div class="pe-5 me-5">
+    
+                <h5 class="nav-link" href="#">Jami tasklar <span class="text-danger p-2">{{user_tasks_count}}</span></h5>
+            </div>
+            <a class="text-warning" href="{% url 'create_card' %}"><i class="fa-solid fa-plus fs-4"></i></a>
+            <div class="pe-5">
+            </div>
+            <form action="{% url 'card_list' %}" class="d-flex" method="get">
+                <input name="q" class="form-control" type="text" placeholder="Qidiruv...">
+                <button type="submit" class="btn btn-outline-success">Go</button>
+            </form>
+            <div class="p-2">
+                <a class="btn btn-danger btn-sm" href="{% url 'logout' %}">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+  
+    <div >
+        <center>
+        {%if tasks%}
+             {% for task in tasks %}
+            <div class="card w-50 p-5">
+                <div class="card-body text-start" >
+                    <h5 class="card-title">{{task.title}}</h5> <br>
+                    <h6 class="card-subtitle mb-2 text-muted">{{task.narx}} ming</h6>
+                    <button class="btn form-control btn-outline-success w-25">
+                      <a href="{% url 'detail_btn' task.id %}" class="h6">detail btn</a>
+                      <h6>{{ task.date}}</h6>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {%else%}
+        <h5 class="alert alert-primary">
+        Not task</h5>
+        {%endif%}
+        </center>
+    </div>
+   
+</div>
+
+{% endblock %}
